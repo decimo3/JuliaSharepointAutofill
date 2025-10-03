@@ -1,0 +1,13 @@
+tmp
+odl
+venv
+data
+dist
+build
+
+*.pyc
+*.zip
+
+__pycache__
+chromedriver-win64
+
