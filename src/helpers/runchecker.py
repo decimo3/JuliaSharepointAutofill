@@ -1,5 +1,6 @@
 ''' Module to check multiples instances and kill residual processes '''
 from .executor import execute
+from .dialogator import show_popup_error
 
 class CouldNotDetermineInstances(Exception):
     ''' Exception to indicate that number of instances cold not be defined '''
@@ -12,9 +13,11 @@ def check_multiple_instances(imagename: str) -> None:
     result = execute('tasklist', '/FI', '"' + 'IMAGENAME', 'eq', imagename + '"')
     if not result or result.startswith('INFO'):
         error_message = f'Instances of {imagename} cannot be defined!'
+        show_popup_error(error_message)
         raise CouldNotDetermineInstances(error_message)
     if result.count(imagename) > 1:
         error_message = f'There is more than one instance of {imagename}!'
+        show_popup_error(error_message)
         raise MultiplesInstancesException(error_message)
 
 def kill_residual_process(imagename: str) -> None:
