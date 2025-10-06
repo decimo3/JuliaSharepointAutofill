@@ -3,17 +3,21 @@ import os
 import sys
 from dotenv import load_dotenv
 
-# Define App name by file name
-APPNAME = sys.argv[0].split('\\')[-1]
-
 # Set what environment it is
 DEV_ENV = not getattr(sys, 'frozen', False)
+
+# Define App name by file name
+APPNAME = (
+    sys.argv[0].split('\\')[-1].replace('.exe','')
+    if not DEV_ENV else
+    sys.argv[0].split('\\')[-1].replace('.py','')
+)
 
 # Set variable that define the folder that it's executed
 BASE_FOLDER = (
     os.path.dirname(sys.executable)
-    if not DEV_ENV
-    else os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    if not DEV_ENV else
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 )
 
 # Load configuration file
