@@ -6,6 +6,7 @@ dist
 build
 
 *.pyc
+*.log
 *.zip
 
 __pycache__
