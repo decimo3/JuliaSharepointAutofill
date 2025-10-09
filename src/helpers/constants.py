@@ -27,3 +27,16 @@ CONFIGS = dotenv_values(configuration_filepath)
 # Load webelements path file
 webelements_filepath = os.path.join(BASE_FOLDER, APPNAME + '.path')
 WAYPATH = dotenv_values(webelements_filepath)
+
+list_times_to_wait = CONFIGS.get('EXPIRAR', '')
+list_times_to_wait = (
+    [int(x) for x in list_times_to_wait.split(',')]
+    if list_times_to_wait and len(list_times_to_wait) == 4 else
+    [0, 0, 0, 0]
+)
+WAITSEC = {
+    'CURTO': list_times_to_wait[0],
+    'MEDIO': list_times_to_wait[1],
+    'LONGO': list_times_to_wait[2],
+    'TOTAL': list_times_to_wait[3]
+}
