@@ -20,12 +20,11 @@ BY = {
 
 class WebHandler:
     ''' Class to Wrap webdriver '''
-    def __init__(self) -> None:
-        siteurl = CONFIGS.get('WEBSITE', '')
+    def __init__(self, siteurl: str) -> None:
         chromepath = CONFIGS.get('GCHROME', '')
         temppath = CONFIGS.get('TMPPATH', os.path.join(BASE_FOLDER, 'tmp'))
-        if not siteurl or not chromepath:
-            error_message = 'A configuração "GCHROME" ou "WEBSITE" não está acessível!'
+        if not chromepath:
+            error_message = 'A configuração "GCHROME" não foi definida!'
             show_popup_error(error_message)
             raise ValueError(error_message)
         driverpath = os.path.join(BASE_FOLDER, 'chromedriver-win64', 'chromedriver.exe')
@@ -41,6 +40,7 @@ class WebHandler:
         options.add_argument(f'--unsafely-treat-insecure-origin-as-secure={siteurl}')
         self.driver = webdriver.Chrome(service=service, options=options)
         self.driver.maximize_window()
+        self.driver.get(siteurl)
     def get_elements(self, pathname: str, timeout: str) -> list[WebElement] | None:
         ''' Function to get a list of WebElements '''
         # Example 1: /html/body/main/form
