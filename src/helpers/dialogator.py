@@ -22,18 +22,18 @@ logging.basicConfig(
 
 def show_popup_error(message: str, show: bool = True) -> None:
     ''' Function to show a popup message about erros '''
-    logger.error('ERRO: %s', message)
+    logger.error(message)
     if show:
         messagebox.showerror('Erro!', message=message)
 
 def show_popup_info(message: str, show: bool = True) -> None:
     ''' Function to show a popup message about info '''
-    logger.info('INFO: %s', message)
+    logger.info(message)
     if show:
         messagebox.showinfo('Info!', message=message)
 
 def show_popup_debug(message: str) -> None:
     ''' Function to show a popup message about debug '''
-    logger.info('DEBUG: %s', message)
+    logger.debug(message)
     if DEV_ENV:
         messagebox.showinfo('Debug!', message=message)
