@@ -79,3 +79,7 @@ class WebHandler:
             show_popup_error(error_message)
             raise ElementNotFoundException(error_message)
         return elements[0]
+    def __enter__(self):
+        return self
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.driver.quit()
