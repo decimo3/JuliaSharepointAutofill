@@ -92,6 +92,9 @@ class WebHandler:
             show_popup_error(error_message)
             raise ElementNotFoundException(error_message)
         return elements[0]
+    def select_option(self, element: WebElement, value: str) -> None:
+        ''' Function to wrap change select element value '''
+        element.find_element(By.XPATH, f'.//option[value="{value}"]').click()
     def __enter__(self):
         return self
     def __exit__(self, exc_type, exc_value, traceback):
