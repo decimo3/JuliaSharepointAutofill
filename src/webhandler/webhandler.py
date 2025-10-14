@@ -21,6 +21,10 @@ BY = {
 class WebHandler:
     ''' Class to Wrap webdriver '''
     def __init__(self, siteurl: str) -> None:
+        if not siteurl:
+            error_message = 'A argumento `siteurl` não foi definido!'
+            show_popup_error(error_message)
+            raise ValueError(error_message)
         chromepath = CONFIGS.get('GCHROME', '')
         temppath = CONFIGS.get('TMPPATH', os.path.join(BASE_FOLDER, 'tmp'))
         if not chromepath:
