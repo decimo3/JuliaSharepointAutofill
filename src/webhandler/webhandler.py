@@ -75,8 +75,17 @@ class WebHandler:
             #    pass
             if datetime.datetime.now() > expiration_time:
                 return None
-    def get_element(self, pathname: str, timeout: str) -> WebElement:
+    def get_element(self,
+            pathname: str,
+            timeout: str,
+            replace_text1: int | None = None,
+            replace_text2: int | None = None
+        ) -> WebElement:
         ''' Function to get a single WebElement '''
+        if replace_text1:
+            pathname = pathname.replace('?', str(replace_text1))
+        if replace_text2:
+            pathname = pathname.replace('¿', str(replace_text2))
         elements = self.get_elements(pathname, timeout)
         if not elements:
             error_message = f'O elemento {pathname} não foi encontrado!'
