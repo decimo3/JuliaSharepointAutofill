@@ -24,7 +24,7 @@ MAX_DEPTH = int(str(CONFIGS.get('PROFUNDIDADE', '0')))
 
 def fill_form(file_or_dir: str) -> None:
     ''' Function to fill form with files and informations '''
-    orderid = file_or_dir.split('\\')[-1]
+    orderid = file_or_dir.split('\\')[-1].replace('.pdf', '')
     orderdt = DATAFRAME[DATAFRAME['Origem'] == orderid]
     filelist = (
         [file_or_dir]
