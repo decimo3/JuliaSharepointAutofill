@@ -25,7 +25,15 @@ MAX_DEPTH = int(str(CONFIGS.get('PROFUNDIDADE', '0')))
 def fill_form(file_or_dir: str) -> None:
     ''' Function to fill form with files and informations '''
     orderid = file_or_dir.split('\\')[-1].replace('.pdf', '')
-    orderdt = DATAFRAME[DATAFRAME['Origem'] == orderid]
+    try:
+        medicao = int(orderid)
+    except ValueError:
+        medicao = None
+    orderdt = (
+        DATAFRAME[DATAFRAME['Num. da Medição'].isin([medicao]) | DATAFRAME['Origem'].isin([orderid])]
+        if medicao is not None else
+        DATAFRAME[DATAFRAME['Origem'].isin([orderid])]
+    )
     if orderdt.empty:
         show_popup_info(f'O serviço {orderid} não foi encontrado na medição! Necessário inserir!')
         return
