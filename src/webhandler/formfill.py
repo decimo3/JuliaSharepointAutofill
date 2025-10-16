@@ -26,6 +26,9 @@ def fill_form(file_or_dir: str) -> None:
     ''' Function to fill form with files and informations '''
     orderid = file_or_dir.split('\\')[-1].replace('.pdf', '')
     orderdt = DATAFRAME[DATAFRAME['Origem'] == orderid]
+    if orderdt.empty:
+        show_popup_info(f'O serviço {orderid} não foi encontrado na medição! Necessário inserir!')
+        return
     filelist = (
         [file_or_dir]
         if not os.path.isdir(file_or_dir) else
