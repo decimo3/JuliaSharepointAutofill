@@ -1,6 +1,7 @@
 ''' Module to setup and startup webdriver '''
 import os
 import datetime
+from urllib.parse import urlparse
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.common.exceptions import NoSuchElementException
@@ -41,10 +42,17 @@ class WebHandler:
         options.binary_location = chromepath
         options.add_argument(f'--app={siteurl}')
         options.add_argument(f'--user-data-dir={temppath}')
-        options.add_argument(f'--unsafely-treat-insecure-origin-as-secure={siteurl}')
         self.driver = webdriver.Chrome(service=service, options=options)
-        self.driver.maximize_window()
+        login = str(CONFIGS.get('USUARIO', ''))
+        senha = str(CONFIGS.get('PALAVRA', ''))
+        if not login or not senha:
+            error_message = 'A configuração "USUARIO" ou "PALAVRA" não foi definida!'
+            show_popup_error(error_message)
+            raise ValueError(error_message)
+        parsed = urlparse(siteurl)
+        siteurl = f"{parsed.scheme}://{login}:{senha}@{parsed.hostname}{parsed.path}{parsed.fragment}"
         self.driver.get(siteurl)
+        self.driver.maximize_window()
     def get_elements(self, pathname: str, timeout: str) -> list[WebElement] | None:
         ''' Function to get a list of WebElements '''
         # Example 1: /html/body/main/form
