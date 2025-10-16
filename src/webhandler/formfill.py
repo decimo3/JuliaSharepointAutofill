@@ -28,7 +28,7 @@ def fill_form(file_or_dir: str) -> None:
     orderdt = DATAFRAME[DATAFRAME['Origem'] == orderid]
     filelist = (
         [file_or_dir]
-        if not os.path.isdir else
+        if not os.path.isdir(file_or_dir) else
         os.listdir(file_or_dir)
     )
     setor = orderdt['Setor'].iloc[0]
