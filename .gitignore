@@ -1,5 +1,7 @@
+.*
+log
 tmp
-odl
+upl
 venv
 data
 dist
@@ -8,6 +10,7 @@ build
 *.pyc
 *.log
 *.zip
+*.xlsx
 
 __pycache__
 chromedriver-win64
