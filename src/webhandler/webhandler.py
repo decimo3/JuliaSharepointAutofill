@@ -8,6 +8,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
 from selenium.webdriver.remote.webelement import WebElement
 from helpers.constants import CONFIGS, WAYPATH, WAITSEC, BASE_FOLDER
 from helpers.dialogator import show_popup_error
@@ -116,7 +117,7 @@ class WebHandler:
         return element
     def select_option(self, element: WebElement, value: str) -> None:
         ''' Function to wrap change select element value '''
-        element.find_element(By.XPATH, f'.//option[value="{value}"]').click()
+        Select(element).select_by_visible_text(value.upper())
     def __enter__(self):
         return self
     def __exit__(self, exc_type, exc_value, traceback):
