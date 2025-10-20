@@ -84,12 +84,9 @@ class WebHandler:
         seconds = WAITSEC.get(timeout, 0)
         expiration_time = datetime.datetime.now() + datetime.timedelta(seconds=seconds)
         while True:
-            #try:
             elements = self.driver.find_elements(bytype, byvalue)
             if elements:
                 return elements
-            #except:
-            #    pass
             if datetime.datetime.now() > expiration_time:
                 return None
     def get_element(self,
