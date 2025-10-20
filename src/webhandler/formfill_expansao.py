@@ -1,6 +1,7 @@
 ''' Module to handle with fill `expansao` Sharepoint '''
 import pandas
 from helpers.constants import WAYPATH
+from helpers.dialogator import show_popup_debug
 from .webhandler import WebHandler
 
 def formfill_expansao(infolist: pandas.DataFrame, filelist: list[str]) -> None:
@@ -46,3 +47,4 @@ def formfill_expansao(infolist: pandas.DataFrame, filelist: list[str]) -> None:
         handler.get_element('EXPANSAO_FILEFORM', 'AGORA', None, None, '\n'.join(filelist))
         handler.get_element('EXPANSAO_FILESEND', 'MEDIA').click()
         handler.get_element('EXPANSAO_SENDFORM', 'MEDIA').click()
+        show_popup_debug(f'Medição {firstline['Num. da Medição']} enviado com sucesso!')
