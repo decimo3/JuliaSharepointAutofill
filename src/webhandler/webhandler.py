@@ -3,6 +3,7 @@ import os
 import datetime
 from time import sleep
 from urllib.parse import urlparse
+from pandas import Timestamp
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.common.exceptions import NoSuchElementException
@@ -95,7 +96,8 @@ class WebHandler:
             pathname: str,
             timeout: str,
             replace_text1: int | None = None,
-            replace_text2: int | None = None
+            replace_text2: int | None = None,
+            value: str | None = None
         ) -> WebElement:
         ''' Function to get a single WebElement '''
         elements = self.get_elements(pathname, timeout, replace_text1, replace_text2)
@@ -103,7 +105,15 @@ class WebHandler:
             error_message = f'O elemento {pathname} não foi encontrado!'
             show_popup_error(error_message)
             raise ElementNotFoundException(error_message)
-        return elements[0]
+        element = elements[0]
+        if value:
+            if isinstance(value, (str, int)):
+                element.click() # Set focus on input
+                element.clear() # Clear value if already filled
+                element.send_keys(value) # Set new input value
+            if isinstance(value, (datetime.datetime, Timestamp)):
+                element.send_keys(value.strftime('%d/%m/%Y')) # If value is
+        return element
     def select_option(self, element: WebElement, value: str) -> None:
         ''' Function to wrap change select element value '''
         element.find_element(By.XPATH, f'.//option[value="{value}"]').click()
