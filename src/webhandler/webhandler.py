@@ -133,7 +133,6 @@ class WebHandler:
             self.get_element(pathname, timeout, replace_text1, replace_text2).click()
         element = self.get_element(pathname, timeout, replace_text1, replace_text2)
         Select(element).select_by_visible_text(value.upper())
-        # FIXME - Find a way to close the select dropdown after changing the value
     def __enter__(self):
         return self
     def __exit__(self, exc_type, exc_value, traceback):
