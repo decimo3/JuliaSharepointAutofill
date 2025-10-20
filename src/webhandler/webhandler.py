@@ -85,7 +85,7 @@ class WebHandler:
         expiration_time = datetime.datetime.now() + datetime.timedelta(seconds=seconds)
         while True:
             elements = self.driver.find_elements(bytype, byvalue)
-            if elements:
+            if elements and elements[0].is_displayed() and elements[0].is_enabled():
                 return elements
             if datetime.datetime.now() > expiration_time:
                 return None
