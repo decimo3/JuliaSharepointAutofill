@@ -47,7 +47,7 @@ def formfill_expansao(infolist: pandas.DataFrame, filelist: list[str]) -> None:
             handler.get_element('EXPANSAO_VALOREXEC', 'AGORA', i, None, row['ValorTotal'])
             handler.select_option('EXPANSAO_MESPGMT', 'AGORA', i, None, row['MesPagto'][:3])
         handler.get_element('EXPANSAO_FILEBTN', 'MEDIA').click()
-        handler.get_element('EXPANSAO_FILEFORM', 'AGORA', None, None, '\n'.join(filelist))
+        handler.get_element('EXPANSAO_FILEFORM', 'AGORA', None, None, filelist)
         handler.get_element('EXPANSAO_FILESEND', 'MEDIA').click()
         handler.get_element('EXPANSAO_SENDFORM', 'MEDIA').click()
         show_popup_info(f'Medição {firstline['Num. da Medição']} enviado com sucesso!', False)
