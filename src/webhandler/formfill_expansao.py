@@ -36,7 +36,10 @@ def formfill_expansao(infolist: pandas.DataFrame, filelist: list[str]) -> None:
             handler.get_element('EXPANSAO_ENCARREGADO', 'AGORA', i, None, row['Encarregado'])
             handler.get_element('EXPANSAO_PONTOTRECHO', 'AGORA', i, None, row['Observações'])
             handler.select_option('EXPANSAO_ATIVIDADE', 'AGORA', i, None, row['atividade'])
-            handler.get_element('EXPANSAO_CODIGOSAP', 'AGORA', i, None, row['CodSAP'])
+            if handler.get_elements('EXPANSAO_CODIGOSAP1', 'AGORA', i, None):
+                handler.get_element('EXPANSAO_CODIGOSAP1', 'AGORA', i, None, row['CodSAP'])
+            else:
+                handler.get_element('EXPANSAO_CODIGOSAP2', 'AGORA', i, None, row['CodSAP'])
             handler.get_element('EXPANSAO_DESCRICAO', 'AGORA', i, None, row['DescServiço'])
             # handler.get_element('EXPANSAO_UNIDADE', 'AGORA', i, None, row['?'])
             handler.get_element('EXPANSAO_QUANTIDADE', 'AGORA', i, None, row['Qde Exec'])
