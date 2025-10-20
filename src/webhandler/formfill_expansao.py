@@ -9,6 +9,8 @@ def formfill_expansao(infolist: pandas.DataFrame, filelist: list[str]) -> None:
     firstline = infolist.iloc[0].to_dict()
     with WebHandler(url) as handler:
         handler.get_element('EXPANSAO_NEWITEM', 'TOTAL').click()
+        if handler.get_elements('EXPANSAO_DIALOGBTN', 'TOTAL'):
+            handler.get_element('EXPANSAO_DIALOGBTN', 'AGORA').click()
         print(handler.get_element('EXPANSAO_EMPREITEIRA', 'LONGA'))
         handler.get_element('EXPANSAO_PROJETO', 'INSTA').send_keys(firstline['Origem'])
         handler.get_element('EXPANSAO_MEDICAO', 'INSTA').send_keys(firstline['Num. da Medição'])
