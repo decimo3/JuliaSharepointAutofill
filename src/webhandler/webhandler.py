@@ -50,7 +50,7 @@ class WebHandler:
             show_popup_error(error_message)
             raise ValueError(error_message)
         parsed = urlparse(siteurl)
-        siteurl = f"{parsed.scheme}://{login}:{senha}@{parsed.hostname}{parsed.path}{parsed.fragment}"
+        siteurl = f"{parsed.scheme}://{login}:{senha}@{parsed.hostname}{parsed.path}#{parsed.fragment}"
         self.driver.get(siteurl)
         self.driver.maximize_window()
     def get_elements(self, pathname: str, timeout: str) -> list[WebElement] | None:
