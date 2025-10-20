@@ -37,6 +37,8 @@ def fill_form(file_or_dir: str) -> None:
     if orderdt.empty:
         show_popup_info(f'O serviço {orderid} não foi encontrado na medição! Necessário inserir!')
         return
+    orderdt = orderdt.reset_index(drop=True)
+    orderdt.index += 8
     filelist = (
         [file_or_dir]
         if not os.path.isdir(file_or_dir) else
