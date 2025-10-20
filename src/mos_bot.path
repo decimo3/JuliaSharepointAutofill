@@ -1,5 +1,6 @@
 EXPANSAO_SHAREPOINT=http://regionalcentrosul/expansao/_layouts/15/start.aspx#/SitePages/Medi%C3%A7%C3%B5es%20INDICA%20OESTE.aspx
 EXPANSAO_NEWITEM=#idHomePageNewItem
+EXPANSAO_DIALOGBTN=#DialogButton0
 EXPANSAO_EMPREITEIRA=/html/body/form/div[12]/div/div[2]/div[2]/div[3]/div[1]/table/tbody/tr/td/div/div/div/div/div[1]/span/div[2]/div/div/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]/div/span[3]/select
 EXPANSAO_PROJETO=/html/body/form/div[12]/div/div[2]/div[2]/div[3]/div[1]/table/tbody/tr/td/div/div/div/div/div[1]/span/div[2]/div/div/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[3]/div/span[2]/input
 EXPANSAO_MEDICAO=/html/body/form/div[12]/div/div[2]/div[2]/div[3]/div[1]/table/tbody/tr/td/div/div/div/div/div[1]/span/div[2]/div/div/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[4]/div/span[3]/input
