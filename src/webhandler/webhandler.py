@@ -6,7 +6,7 @@ from urllib.parse import urlparse
 from pandas import Timestamp
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.remote.webelement import WebElement
@@ -115,9 +115,25 @@ class WebHandler:
             if isinstance(value, (datetime.datetime, Timestamp)):
                 element.send_keys(value.strftime('%d/%m/%Y')) # If value is
         return element
-    def select_option(self, element: WebElement, value: str) -> None:
+    def select_option(self,
+            pathname: str,
+            timeout: str,
+            replace_text1: int | None = None,
+            replace_text2: int | None = None,
+            value: str | None = None
+        ) -> None:
         ''' Function to wrap change select element value '''
+        if not value:
+            error_message = f'Não foi fornecido um valor para selecionar!'
+            show_popup_error(error_message)
+            raise ValueError(error_message)
+        try:
+            self.get_element(pathname, timeout, replace_text1, replace_text2).click()
+        except StaleElementReferenceException:
+            self.get_element(pathname, timeout, replace_text1, replace_text2).click()
+        element = self.get_element(pathname, timeout, replace_text1, replace_text2)
         Select(element).select_by_visible_text(value.upper())
+        # FIXME - Find a way to close the select dropdown after changing the value
     def __enter__(self):
         return self
     def __exit__(self, exc_type, exc_value, traceback):
