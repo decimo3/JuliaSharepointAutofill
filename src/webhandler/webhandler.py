@@ -98,7 +98,7 @@ class WebHandler:
             timeout: str,
             replace_text1: int | None = None,
             replace_text2: int | None = None,
-            value: str | None = None
+            value: str | list | None = None
         ) -> WebElement:
         ''' Function to get a single WebElement '''
         elements = self.get_elements(pathname, timeout, replace_text1, replace_text2)
@@ -108,6 +108,8 @@ class WebHandler:
             raise ElementNotFoundException(error_message)
         element = elements[0]
         if value:
+            if isinstance(value, list):
+                element.send_keys('\n'.join(value))
             if isinstance(value, (str, int)):
                 element.click() # Set focus on input
                 element.clear() # Clear value if already filled
