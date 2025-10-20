@@ -53,7 +53,12 @@ class WebHandler:
         siteurl = f"{parsed.scheme}://{login}:{senha}@{parsed.hostname}{parsed.path}#{parsed.fragment}"
         self.driver.get(siteurl)
         self.driver.maximize_window()
-    def get_elements(self, pathname: str, timeout: str) -> list[WebElement] | None:
+    def get_elements(self,
+            pathname: str,
+            timeout: str,
+            replace_text1: int | None = None,
+            replace_text2: int | None = None
+        ) -> list[WebElement] | None:
         ''' Function to get a list of WebElements '''
         # Example 1: /html/body/main/form
         # Will be By.XPATH and '/html/body/main/form'
@@ -66,6 +71,10 @@ class WebHandler:
             error_message = f'A caminho {pathname} não foi encontrado na configuração!'
             show_popup_error(error_message)
             raise ValueError(error_message)
+        if replace_text1:
+            pathvalue = pathvalue.replace('?', str(replace_text1))
+        if replace_text2:
+            pathvalue = pathvalue.replace('¿', str(replace_text2))
         bytype = BY.get(pathvalue[:1], '')
         if not bytype:
             error_message = f'O tipo do caminho {pathname} não pode ser definido!'
@@ -90,11 +99,7 @@ class WebHandler:
             replace_text2: int | None = None
         ) -> WebElement:
         ''' Function to get a single WebElement '''
-        if replace_text1:
-            pathname = pathname.replace('?', str(replace_text1))
-        if replace_text2:
-            pathname = pathname.replace('¿', str(replace_text2))
-        elements = self.get_elements(pathname, timeout)
+        elements = self.get_elements(pathname, timeout, replace_text1, replace_text2)
         if not elements:
             error_message = f'O elemento {pathname} não foi encontrado!'
             show_popup_error(error_message)
