@@ -13,7 +13,7 @@ if not os.path.exists(logspath):
 logspath = os.path.join(logspath, APPNAME + '.log')
 logging.basicConfig(
     format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    level = logging.DEBUG,
+    level = logging.DEBUG if DEV_ENV else logging.INFO,
     handlers = [
         logging.StreamHandler(sys.stdout),
         RotatingFileHandler(filename=logspath, maxBytes=1000000, backupCount=5)
