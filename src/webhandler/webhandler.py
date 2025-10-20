@@ -1,6 +1,7 @@
 ''' Module to setup and startup webdriver '''
 import os
 import datetime
+from time import sleep
 from urllib.parse import urlparse
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -89,6 +90,7 @@ class WebHandler:
                 return elements
             if datetime.datetime.now() > expiration_time:
                 return None
+            sleep(0.2)
     def get_element(self,
             pathname: str,
             timeout: str,
