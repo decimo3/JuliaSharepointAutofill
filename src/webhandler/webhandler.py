@@ -99,7 +99,7 @@ class WebHandler:
             timeout: str,
             replace_text1: int | None = None,
             replace_text2: int | None = None,
-            value: str | list | None = None
+            value: str | list[str] | None = None
         ) -> WebElement:
         ''' Function to get a single WebElement '''
         elements = self.get_elements(pathname, timeout, replace_text1, replace_text2)
