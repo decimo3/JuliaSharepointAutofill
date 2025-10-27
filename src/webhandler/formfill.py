@@ -58,11 +58,12 @@ def recursive_search(current_folder: str, cur_depth: int) -> None:
     ''' Function to search recursivily to folders to find documents to send '''
     if cur_depth > MAX_DEPTH:
         return
+    if cur_depth == MAX_DEPTH:
+        fill_form(current_folder)
+        return
     items = os.listdir(current_folder)
     for item in items:
         current_item = os.path.join(current_folder, item)
-        if cur_depth == MAX_DEPTH:
-            fill_form(current_item)
         if os.path.isdir(current_item):
             recursive_search(current_item, cur_depth + 1)
 
