@@ -8,11 +8,14 @@ Cada tipo de serviço atende a um formulário diferente mas as informações par
 ambos os formulários estão na planilha `consulta_medicao_completa.xlsx`.
 '''
 import os
+from typing import List, Tuple
+from pandas import DataFrame
 from helpers.constants import BASE_FOLDER, CONFIGS
 from helpers.dialogator import show_popup_info, show_popup_error
 from helpers.excelhandler import get_dataframe_from_excel
-from .formfill_expansao import formfill_expansao
-from .formfill_manutencao import formfill_manutencao
+from webhandler.webhandler import WebHandler
+from webhandler.formfill_expansao import formfill_expansao
+from webhandler.formfill_manutencao import formfill_manutencao
 
 excel_path = os.path.join(BASE_FOLDER, 'consulta_medicao_completa.xlsx')
 if not os.path.exists(excel_path):
