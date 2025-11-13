@@ -22,37 +22,45 @@ if not os.path.exists(excel_path):
 DATAFRAME = get_dataframe_from_excel(excel_path)
 MAX_DEPTH = int(str(CONFIGS.get('PROFUNDIDADE', '0')))
 
-def fill_form(file_or_dir: str) -> None:
-    ''' Function to fill form with files and informations '''
-    orderid = file_or_dir.split('\\')[-1].replace('.pdf', '')
-    try:
-        medicao = int(orderid)
-    except ValueError:
-        medicao = None
-    orderdt = (
-        DATAFRAME[DATAFRAME['Num. da Medição'].isin([medicao]) | DATAFRAME['Origem'].isin([orderid])]
-        if medicao is not None else
-        DATAFRAME[DATAFRAME['Origem'].isin([orderid])]
-    )
-    if orderdt.empty:
-        show_popup_info(f'O serviço {orderid} não foi encontrado na medição! Necessário inserir!')
-        return
-    orderdt = orderdt.reset_index(drop=True)
-    orderdt.index += 8
-    filelist = (
-        [file_or_dir]
-        if not os.path.isdir(file_or_dir) else
-        os.listdir(file_or_dir)
-    )
-    setor = orderdt['Setor'].iloc[0]
-    if setor == 'Expansão':
-        formfill_expansao(orderdt, filelist)
-        return
-    if setor in {'Manutenção', 'Qualidade'}:
-        formfill_manutencao(orderdt, filelist)
-        return
-    show_popup_info(f'O setor "{setor}" do projeto {orderid} é inválido! O mesmo não será enviado!')
-    return
+def fill_form(current_folder: str) -> None:
+    ''' Function to separate projects by sector to be sent to the corresponding SharePoint '''
+    expansao_projects: List[Tuple[List[str], DataFrame]] = []
+    manutencao_projects: List[Tuple[List[str], DataFrame]] = []
+    items = os.listdir(current_folder)
+    for file_or_dir in items:
+        orderid = file_or_dir.split('\\')[-1].replace('.pdf', '')
+        try:
+            medicao = int(orderid)
+        except ValueError:
+            medicao = None
+        orderdt = (
+            DATAFRAME[DATAFRAME['Num. da Medição'].isin([medicao]) | DATAFRAME['Origem'].isin([orderid])]
+            if medicao is not None else
+            DATAFRAME[DATAFRAME['Origem'].isin([orderid])]
+        )
+        if orderdt.empty:
+            show_popup_info(f'O serviço {orderid} não foi encontrado na medição! Necessário inserir!')
+            continue
+        orderdt = orderdt.reset_index(drop=True)
+        orderdt.index += 8
+        filelist = (
+            [file_or_dir]
+            if not os.path.isdir(file_or_dir) else
+            os.listdir(file_or_dir)
+        )
+        setor = orderdt['Setor'].iloc[0]
+        if setor == 'Expansão':
+            expansao_projects.append((filelist, orderdt))
+        if setor in {'Manutenção', 'Qualidade'}:
+            manutencao_projects.append((filelist, orderdt))
+        show_popup_info(f'O setor "{setor}" do projeto {orderid} é inválido! O mesmo não será enviado!')
+    # Enviando os arquivos...
+    with WebHandler('EXPANSAO_SHAREPOINT') as handler:
+        for filelist, orderdt in expansao_projects:
+            formfill_expansao(handler, orderdt, filelist)
+    with WebHandler('MANUTENCAO_SHAREPOINT') as handler:
+        for filelist, orderdt in manutencao_projects:
+            formfill_manutencao(handler, orderdt, filelist)
 
 def recursive_search(current_folder: str, cur_depth: int) -> None:
     ''' Function to search recursivily to folders to find documents to send '''
