@@ -1,6 +1,6 @@
 ''' Module to handle with fill `manutencao` Sharepoint '''
-import pandas
-from .webhandler import WebHandler
+from pandas import DataFrame
+from webhandler.webhandler import WebHandler
 
-def formfill_manutencao(infolist: pandas.DataFrame, filelist: list[str]) -> None:
+def formfill_manutencao(handler: WebHandler, infolist: DataFrame, filelist: list[str]) -> None:
     ''' Function to handle with fill `manutencao` Sharepoint '''
