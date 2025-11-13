@@ -1,4 +1,7 @@
-EXPANSAO_SHAREPOINT=http://regionalcentrosul/expansao/_layouts/15/start.aspx#/SitePages/Medi%C3%A7%C3%B5es%20INDICA%20OESTE.aspx
+EXPANSAO_SHAREPOINT=http://regionalcentrosul/expansao/_layouts/15/start.aspx#/SitePages/Medi%C3%A7%C3%B5es%20INDICA%20OESTE.aspx#InplviewHash37752024-08fe-4d30-971d-ba93f276287e=FilterField1%3DEmpreiteira-FilterValue1%3DINDICA%2520SERVI%25C3%2587OS-FilterField2%3DContrato-FilterValue2%3D4600010374
+EXPANSAO_RELATORIO=/html/body/form/div[12]/div/div[2]/div[2]/div[3]/div[4]/div/div/table/tbody/tr/td/div/div/div/div[1]/div/div/div[2]/table/tbody/tr/td/table[2]
+EXPANSAO_CABECALHOS=/html/body/form/div[12]/div/div[2]/div[2]/div[3]/div[4]/div/div/table/tbody/tr/td/div/div/div/div[1]/div/div/div[2]/table/tbody/tr/td/table[2]/thead/tr/th
+EXPANSAO_VALORACOES=/html/body/form/div[12]/div/div[2]/div[2]/div[3]/div[4]/div/div/table/tbody/tr/td/div/div/div/div[1]/div/div/div[2]/table/tbody/tr/td/table[2]/tbody/tr
 EXPANSAO_NEWITEM=#idHomePageNewItem
 EXPANSAO_DIALOGBTN=#DialogButton0
 EXPANSAO_EMPREITEIRA=/html/body/form/div[12]/div/div[2]/div[2]/div[3]/div[1]/table/tbody/tr/td/div/div/div/div/div[1]/span/div[2]/div/div/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]/div/span[3]/select
