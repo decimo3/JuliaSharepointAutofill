@@ -34,7 +34,7 @@ pip install -r requirements.txt
 #pytest src/test_mos_bot.py
 
 # Build executable with pyinstaller
-pyinstaller --icon appicon.ico --version-file version_file.txt --hidden-import lxml --onefile src/mos_bot.py
+pyinstaller --icon mos_bot.ico --version-file version_file.txt --hidden-import lxml --onefile src/mos_bot.py
 
 # Restore files with sensible data
 cp src/mos_bot.conf src/mos_bot.conf.bak
@@ -50,11 +50,11 @@ mv release_notes.tmp release_notes.md
 cat release_notes.md
 
 # Create a release on GitHub
-gh release create $version --verify-tag --notes-file release_notes.md --title "MOS_BOT release" dist/mos_bot.zip#mos_bot.zip
+gh release create $version --verify-tag --notes-file release_notes.md --title "MOS_BOT ${version} release" dist/mos_bot.zip#mos_bot.zip
 
 # Reverting placeholder files
 git restore release_notes.md
 git restore version_file.txt
 
-# Reverting sensible data from files
+# Retrieve sensible data from files
 rm src/mos_bot.conf && mv src/mos_bot.conf.bak src/mos_bot.conf
