@@ -9,17 +9,18 @@ def scrapper_expansao(handler: WebHandler) -> DataFrame:
     handler.get_element('EXPANSAO_RELATORIO', 'TOTAL')
     sleep(5)
     # Collect header
+    head: list[str] = []
     headers = handler.get_elements('EXPANSAO_CABECALHOS', 'AGORA')
     if headers is None:
         raise ElementNotFoundException()
-    head: list[str] = [col.text.strip() for col in headers]
+    head = [col.text.strip() if col.text.strip() else f'Coluna{i}' for i, col in enumerate(headers)]
     # Collect bodies
-    lines = handler.get_elements('EXPANSAO_VALORACOES', 'AGORA')
-    if lines is None:
-        raise ElementNotFoundException()
     body: list[list[str]] = []
-    for row in lines:
-        cols: list[str] = [col.text.strip() for col in row.find_elements(By.XPATH, './td')]
+    line_number = len(handler.get_elements('EXPANSAO_VALORACOES_LN', 'AGORA') or [])
+    for i in range(line_number):
+        cols: list[str] = []
+        for j in range(len(head)):
+            cols.append(handler.get_element('EXPANSAO_VALORACOES_XY', 'AGORA', i + 1, j + 1).text.strip())
         body.append(cols)
     return DataFrame(data=body, columns=head)
 
