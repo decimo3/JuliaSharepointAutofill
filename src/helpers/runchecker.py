@@ -1,7 +1,7 @@
 ''' Module to check multiples instances and kill residual processes '''
 from .executor import execute
 from .dialogator import show_popup_error
-from .constants import APPNAME, DEV_ENV
+#from .constants import APPNAME, DEV_ENV
 
 class CouldNotDetermineInstances(Exception):
     ''' Exception to indicate that number of instances cold not be defined '''
@@ -27,7 +27,8 @@ def kill_residual_process(imagename: str) -> None:
 
 def instance_checker() -> None:
     ''' Main function to check if program is already running and kill residual programs '''
-    if not DEV_ENV:
-        check_multiple_instances(APPNAME)
+    #(check_multiple_instances(APPNAME + '.py')
+    #    if DEV_ENV else
+    #check_multiple_instances(APPNAME + '.exe'))
     kill_residual_process('chromedriver.exe')
     kill_residual_process('chrome.exe')
