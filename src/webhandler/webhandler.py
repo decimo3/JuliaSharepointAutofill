@@ -31,7 +31,9 @@ class WebHandler:
             show_popup_error(error_message)
             raise ValueError(error_message)
         chromepath = CONFIGS.get('GCHROME', '')
-        temppath = CONFIGS.get('TMPPATH', os.path.join(BASE_FOLDER, 'tmp'))
+        temppath = str(CONFIGS.get('TMPPATH', os.path.join(BASE_FOLDER, 'tmp')))
+        if not os.path.exists(temppath):
+            os.mkdir(temppath)
         if not chromepath:
             error_message = 'A configuração "GCHROME" não foi definida!'
             show_popup_error(error_message)
