@@ -26,7 +26,7 @@ def formfill_expansao(handler: WebHandler, infolist: DataFrame, filelist: list[s
     handler.get_element('EXPANSAO_MUNICIPIO', 'AGORA', None, None, firstline['Município'])
     handler.get_element('EXPANSAO_INICIO', 'AGORA', None, None, firstline['Início'])
     handler.get_element('EXPANSAO_FINAL', 'AGORA', None, None, firstline['Término'])
-    handler.select_option('EXPANSAO_SOLICITANTE', 'AGORA', None, None, 'WELITON BARBOSA CHAGAS') # FIXME - firstline['Téc Cliente']
+    handler.select_option('EXPANSAO_SOLICITANTE', 'AGORA', None, None, firstline['Téc Cliente'])
     handler.get_element('EXPANSAO_RESPONSAVEL', 'AGORA', None, None, firstline['Responsável Trabalho'])
     handler.get_element('EXPANSAO_DATAMEDICAO', 'AGORA', None, None, firstline['Data Lançamento'])
     for i, row in infolist.iterrows():
