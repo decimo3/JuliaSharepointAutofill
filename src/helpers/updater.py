@@ -39,7 +39,7 @@ def googlechrome_get_local_version() -> Version:
         raise FileNotFoundError(error_message)
     version = get_version_from_string_output(execute(
         'powershell',
-        f'-c "(Get-Item "{chromepath}").VersionInfo.ProductVersion.ToString()"'
+        f'-c "(Get-Item \'{chromepath}\').VersionInfo.ProductVersion.ToString()"'
     ))
     if not version:
         error_message = 'A versão do navegador GoogleChrome não pode ser obtida!'
