@@ -20,12 +20,7 @@ def scrapper_manutencao(handler: WebHandler) -> DataFrame:
 
 def sharepoint_scrapper() -> None:
     ''' Main function to handle sharepoints scrapper '''
-    custom_path = str(CONFIGS.get('ODLPATH', ''))
-    report_path = (
-        custom_path
-        if custom_path else
-        os.path.join(BASE_FOLDER, 'odl')
-    )
+    report_path = str(CONFIGS.get('ODLPATH', os.path.join(BASE_FOLDER, 'odl')))
     if not os.path.exists(report_path):
         os.mkdir(report_path)
     with WebHandler('EXPANSAO_SHAREPOINT') as handler:
