@@ -3,4 +3,4 @@
 [ ] - Atualização do ChromeDriver dando problema com certificado da rede NetSkope em `chromedriver_get_remote_version`
 [X] - Problema dos espaços no caminho do navegador Google Chrome em `googlechrome_get_local_version`
 [X] - Usar a configuração `ODLPATH` para arquivos gerado em `sharepoint_scrapper` e tornar opcional
-[ ] - Tornar a configuração `TMPPATH` opcional (criar e usar a pasta `tmp` na pasta BASE_FOLDER)
+[X] - Tornar a configuração `TMPPATH` opcional (criar e usar a pasta `tmp` na pasta BASE_FOLDER)
