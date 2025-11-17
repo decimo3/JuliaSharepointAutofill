@@ -1,4 +1,7 @@
 ''' Module to hold version class data model '''
+
+DISABLE_PATCH_EXTRA_VERSION_CHECK = True
+
 class Version:
     ''' Class to hold informations about version '''
     major: int
@@ -31,6 +34,10 @@ class Version:
     def __eq__(self, value: object) -> bool:
         if not isinstance(value, Version):
             raise ValueError('O objeto comparado não é do mesmo tipo!')
+        # Disable patch and extra check
+        if DISABLE_PATCH_EXTRA_VERSION_CHECK:
+            return (self.major == value.major
+                and self.minor == value.minor)
         return (
             self.major == value.major and
             self.minor == value.minor and
@@ -44,6 +51,9 @@ class Version:
             return self.major > other.major
         if self.minor != other.minor:
             return self.minor > other.minor
+        # Disable patch and extra check
+        if DISABLE_PATCH_EXTRA_VERSION_CHECK:
+            return False
         if self.patch != other.patch:
             return self.patch > other.patch
         return self.extra > other.extra
