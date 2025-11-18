@@ -44,6 +44,8 @@ class Version:
             self.patch == value.patch and
             self.extra == value.extra
         )
+    def __ne__(self, other: object) -> bool:
+        return not self.__eq__(other)
     def __gt__(self, other: object) -> bool:
         if not isinstance(other, Version):
             raise ValueError('O objeto comparado não é do mesmo tipo!')
@@ -57,5 +59,16 @@ class Version:
         if self.patch != other.patch:
             return self.patch > other.patch
         return self.extra > other.extra
+    def __ge__(self, other: object) -> bool:
+        return self.__eq__(other) or self.__gt__(other)
+    def __le__(self, other: object) -> bool:
+        return self.__eq__(other) or not self.__gt__(other)
+    def __lt__(self, other: object) -> bool:
+        return self.__ne__(other) and not self.__gt__(other)
     def __str__(self) -> str:
-        return str(self.major) + '.' + str(self.minor) + '.' + str(self.patch) + '.' + str(self.extra)
+        return (
+            str(self.major) + '.' +
+            str(self.minor) + '.' +
+            str(self.patch) + '.' +
+            str(self.extra)
+        )
