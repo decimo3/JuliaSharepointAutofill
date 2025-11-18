@@ -28,6 +28,21 @@ Neste modo, basta iniciar o programa, que se autenticará, carregará a página 
 
 O relatório é exportado como um arquivo CSV e, para visualização correta no Excel, deve ser importado usando ferramentas de análise de dados (Microsoft Power Query).
 
+## Solução de problemas
+
+### Problema com atualização do ChromeDriver
+
+O problema com a atualização do ChromeDriver, se deve a alteração do certificado de segurança, causada pela conexão com o NetSkope.
+
+1. Quando o programa tentar realizar a atualização, se estiver na rede do NetSkope ele falhará;
+    > Não será possível utilizar o programa enquanto o ChromeDriver não for atualizado;
+2. Para atualizar será necessário desabilitar a rede NetSkope e iniciar o programa;
+3. Com a rede NetSkope desabilitada, ele conseguirá atualizar, mas falhará na operação;
+4. Depois da atualização realizada, reabilite o NetSkope e inicie o programa normalmente.
+
+> Essa atualização é necessária a cada atualização do navegador Google Chrome, geralmente uma vez por mês.
+> Fonte: <https://www.oficinadanet.com.br/google/34694-com-que-frequencia-o-google-atualiza-o-chrome>
+
 ## Desenvolvimento
 
 Para criar um executável, siga os passos abaixo:
