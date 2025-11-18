@@ -1,3 +1,5 @@
+DRIVER_REMOTE=https://googlechromelabs.github.io/chrome-for-testing/LATEST_RELEASE_STABLE
+DRIVER_DOWNLOAD=https://storage.googleapis.com/chrome-for-testing-public/{driver_version}/win64/chromedriver-win64.zip
 EXPANSAO_SHAREPOINT=http://regionalcentrosul/expansao/_layouts/15/start.aspx#/SitePages/Medi%C3%A7%C3%B5es%20INDICA%20OESTE.aspx
 EXPANSAO_RELATORIO=/html/body/form/div[12]/div/div[2]/div[2]/div[3]/div[4]/div/div/table/tbody/tr/td/div/div/div/div[1]/div/div/div[2]/table/tbody/tr/td
 EXPANSAO_NEWITEM=#idHomePageNewItem
