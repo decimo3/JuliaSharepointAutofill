@@ -107,8 +107,13 @@ def update_chromedriver() -> None:
     show_popup_info(f'Chrome major version: {chrome_version}.', False)
     driver_version = chromedriver_get_local_version()
     show_popup_info(f'Driver major version: {driver_version}.', False)
-    if driver_version > chrome_version:
+    if driver_version == chrome_version:
+        show_popup_info('ChromeDriver e GoogleChrome já atualizados!', False)
         return
+    if driver_version > chrome_version:
+        message = 'Necessário atualizar o navegador Google Chrome!'
+        show_popup_error(message)
+        raise ValueError(message)
     # Verificando atualização do chromedriver
     show_popup_info('Verificando atualização do chromedriver...', False)
     newer_version = chromedriver_get_remote_version()
