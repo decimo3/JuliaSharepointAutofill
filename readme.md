@@ -28,6 +28,21 @@ In this mode, you only need to start the program, and it will authenticate, load
 
 The report is exported as a CSV file, and for correct viewing in Excel, it must be imported using data analysis tools (Microsoft PowerQuery).
 
+## Troubleshot
+
+### Problem updating ChromeDriver
+
+The problem with updating ChromeDriver is due to a change in the security certificate, caused by the connection to NetSkope.
+
+1. When the program tries to perform the update, if it is on the NetSkope network it will fail;
+    > It will not be possible to use the program until the ChromeDriver is updated;
+2. To update, you will need to disable the NetSkope network and start the program;
+3. With the NetSkope network disabled, it will be able to update, but the operation will fail;
+4. After the update has been completed, re-enable NetSkope and start the program normally.
+
+> This update is required with each Google Chrome browser update, usually once a month.
+> source in brazilian portuguese: <https://www.oficinadanet.com.br/google/34694-com-que-frequencia-o-google-atualiza-o-chrome>
+
 ## Development
 
 To create an executable, follow the steps below:
