@@ -4,14 +4,10 @@ import re
 import shutil
 import zipfile
 import requests
-from .constants import BASE_FOLDER, CONFIGS
+from .constants import BASE_FOLDER, CONFIGS, WAYPATH
 from .executor import execute
 from .dialogator import show_popup_info, show_popup_error
 from .version import Version
-
-DRIVER_REMOTE = 'https://googlechromelabs.github.io/chrome-for-testing/LATEST_RELEASE_STABLE'
-
-DRIVER_DOWNLOAD = 'https://storage.googleapis.com/chrome-for-testing-public/{driver_version}/win64/chromedriver-win64.zip'
 
 class VersionNotFound(Exception):
     ''' Custon exception to indicate that version could not be defined '''
@@ -61,7 +57,12 @@ def chromedriver_get_local_version() -> Version:
 
 def chromedriver_get_remote_version() -> Version:
     ''' Function to get info about Chrome Driver versions '''
-    response = requests.get(DRIVER_REMOTE, timeout=60)
+    driver_remote = str(WAYPATH.get('DRIVER_REMOTE', ''))
+    if not driver_remote:
+        error_message = 'O caminho `DRIVER_REMOTE` não foi encontrado!'
+        show_popup_error(error_message)
+        raise ValueError(error_message)
+    response = requests.get(driver_remote, timeout=60)
     version = get_version_from_string_output(response.text)
     if not version:
         error_message = 'A versão do ChromeDriver remoto não pode ser obtida!'
@@ -72,7 +73,13 @@ def chromedriver_get_remote_version() -> Version:
 def chromedriver_download_newer_version(driver_version: Version) -> None:
     ''' Function to download newer version of Chrome Driver '''
     update_path = os.path.join(BASE_FOLDER, 'chromedriver-win64.zip')
-    response = requests.get(DRIVER_DOWNLOAD.format(driver_version=str(driver_version)), timeout=60)
+    driver_download = str(WAYPATH.get('DRIVER_DOWNLOAD', ''))
+    if not driver_download:
+        error_message = 'O caminho `DRIVER_DOWNLOAD` não foi encontrado!'
+        show_popup_error(error_message)
+        raise ValueError(error_message)
+    driver_download.format(driver_version=str(driver_version))
+    response = requests.get(driver_download, timeout=60)
     if not response.ok:
         error_message = 'Não foi possível baixar a atualização!'
         show_popup_error(error_message)
