@@ -78,7 +78,7 @@ def chromedriver_download_newer_version(driver_version: Version) -> None:
         error_message = 'O caminho `DRIVER_DOWNLOAD` não foi encontrado!'
         show_popup_error(error_message)
         raise ValueError(error_message)
-    driver_download.format(driver_version=str(driver_version))
+    driver_download = driver_download.format(driver_version=str(driver_version))
     response = requests.get(driver_download, timeout=60)
     if not response.ok:
         error_message = 'Não foi possível baixar a atualização!'
