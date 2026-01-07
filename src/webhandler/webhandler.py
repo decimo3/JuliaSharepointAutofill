@@ -2,7 +2,7 @@
 import os
 import datetime
 from time import sleep
-from urllib.parse import urlparse
+from urllib.parse import quote, urlparse
 from pandas import Timestamp
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -55,6 +55,7 @@ class WebHandler:
             error_message = 'A configuração "USUARIO" ou "PALAVRA" não foi definida!'
             show_popup_error(error_message)
             raise ValueError(error_message)
+        senha = quote(senha, safe="")
         parsed = urlparse(siteurl)
         siteurl = f"{parsed.scheme}://{login}:{senha}@{parsed.hostname}{parsed.path}#{parsed.fragment}"
         self.driver.get(siteurl)
