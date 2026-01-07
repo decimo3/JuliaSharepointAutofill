@@ -1,8 +1,15 @@
-# Bug fixed and some improvements
+# Bug fixed: reserved URL characters on password
 
-1. Solved problem to handle Google Chrome path with spaces on `GCHROME` configuration file;
-2. Add instruction to save report on custom folder on `UPOPATH` configuration file or `odl` on installation folder by default;
-3. Add instruction to use custom folder on `ODLPATH` configuration file or `odl` on installation folder by default;
-4. Add instruction to use custom folder on `TMPPATH` configuration file or `tmp` on installation folder by default;
-5. Add flag to disable patch and extra check to greater and equal functions due issues with missmatch versions of `chromedriver` and `googlechrome`;
-6. fixed hardcoded value to variable value on `formfill_expansao` method.
+The program fail to navigate to URL due to use of reserved URL characters on password. Example:
+
+* "pass#word" – it'll fail because the use of a hashtag character that's a fragment indicator character.
+* "pass:word" – it'll fail because the colon character is used to separate the scheme, host, and port in URLs.
+* "pass?word" – it'll fail because the question mark character starts the query string in URLs.
+* "pass/word" – it'll fail because the slash character is used to separate path segments in URLs.
+* "pass@word" – it'll fail because the at symbol separates credentials from the host in URLs.
+* "pass%word" – it'll fail because the percent character is used to introduce percent-encoding sequences in URLs.
+* "pass&word" – it'll fail because the ampersand character separates query parameters in URLs.
+* "pass+word" – it'll fail because the plus character is often interpreted as a space in query strings.
+* "pass=word" – it'll fail because the equals' character is used to assign values to query parameters.
+
+To fix this, was added an instruction to encode password before navigate to the page.
